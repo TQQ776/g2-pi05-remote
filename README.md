@@ -23,22 +23,24 @@
   通过 DDS 和 `10.42.1.101` 的机器人通信。不用往机器人上拷代码。
   见 `gdk/installer/server_installer.tar.gz` → 解包后 `source <app>/env.sh`，
   必须用 `python3.10`（cp310 ABI）。网口配成 `10.42.1.x/24`，ping 通即可。
-- **机器人本体**：仓库里的 `gdk/lib/` 是 aarch64 版，`./run_client.sh` 直接启动。
+- **机器人本体**：仓库里的 `gdk/lib/` 是 aarch64 版，`./client/run_client.sh` 直接启动。
 
 ## 文件
 
+两端代码各占一个目录，`client/` 跑在机器人侧，`server/` 跑在 GPU 机器侧：
+
 | 文件 | 作用 |
 |---|---|
-| `wire.py` | 协议编解码，只依赖 stdlib + numpy |
-| `g2_io.py` | GDK 封装：读三路相机、读 24 维 state、机械臂伺服、夹爪控制 |
-| `client.py` | 主循环：采集 → 发送 → 收动作 → 下发 |
-| `send_fake.py` | 不接机器人，用合成图测通服务器（在开发机上跑） |
-| `snap.py` | 单独读三路相机：存图 + 测实际帧率 |
-| `view.py` | tkinter 实时预览三路相机（带陈旧帧告警） |
-| `pose_save.py` | **只读**：把当前 24 维姿态存成 `poses/*.json` |
-| `pose_restore.py` | 把机械臂缓动还原到某个已保存的姿态 |
-| `move_right_arm.py` | 右臂单臂移动到训练集的 episode 起始位姿 |
-| `run_client.sh` | 在机器人上启动 |
+| `client/wire.py` | 协议编解码，只依赖 stdlib + numpy |
+| `client/g2_io.py` | GDK 封装：读三路相机、读 24 维 state、机械臂伺服、夹爪控制 |
+| `client/client.py` | 主循环：采集 → 发送 → 收动作 → 下发 |
+| `client/send_fake.py` | 不接机器人，用合成图测通服务器（在开发机上跑） |
+| `client/snap.py` | 单独读三路相机：存图 + 测实际帧率 |
+| `client/view.py` | tkinter 实时预览三路相机（带陈旧帧告警） |
+| `client/pose_save.py` | **只读**：把当前 24 维姿态存成 `client/poses/*.json` |
+| `client/pose_restore.py` | 把机械臂缓动还原到某个已保存的姿态 |
+| `client/move_right_arm.py` | 右臂单臂移动到训练集的 episode 起始位姿 |
+| `client/run_client.sh` | 在机器人上启动 |
 
 服务端（跑在 GPU 机器上）：
 
@@ -47,6 +49,9 @@
 | `server/server.py` | TCP 服务：收 JPEG → 解码 → π0.5 推理 → 回 (50,16) action |
 | `server/wire.py` | 和客户端 **同一份**协议实现（两侧 md5 一致，改一边要同步另一边） |
 | `server/run_server.sh` | 在 openpi 根目录下启动 |
+
+`client/` 里的 `run_*.sh` 都会先 `cd` 到自己所在目录，所以从哪儿调用都行；
+`g2_io.py` / `wire.py` 是同级 import，`client/poses/` 也会跟着脚本走。
 
 `server/` 里假设它被放在 openpi 仓库根下的 `server/` 目录（`ROOT = parents[1]`），
 因为它要 import openpi 的 `pi05_g2_lora` 配置和权重加载器。单独 clone 这个仓库跑不起来服务端，
@@ -66,7 +71,7 @@ cd /root/autodl-tmp/openpi
 
 ```bash
 source /mnt/models/gdk_x86/app/env.sh
-cd examples/g2_pi05_remote
+cd examples/g2_pi05_remote/client
 python3.10 snap.py --out /tmp/camsnap --rounds 20   # 存图 + 测帧率
 python3.10 snap.py --no-save --rounds 30            # 只测帧率
 ```
@@ -76,8 +81,8 @@ python3.10 snap.py --no-save --rounds 30            # 只测帧率
 **2. 开发机上先验证链路（不需要机器人）**
 
 ```bash
-python send_fake.py --host <服务器IP> --port 8765 --rounds 5            # 拟真画面
-python send_fake.py --host <服务器IP> --port 8765 --pattern noise       # 上行最坏情况
+python client/send_fake.py --host <服务器IP> --port 8765 --rounds 5            # 拟真画面
+python client/send_fake.py --host <服务器IP> --port 8765 --pattern noise       # 上行最坏情况
 ```
 
 正常输出（拟真画面）：
@@ -90,7 +95,7 @@ python send_fake.py --host <服务器IP> --port 8765 --pattern noise       # 上
 **3. 机器人上只读验证**
 
 ```bash
-./run_client.sh --host <服务器IP> --port 8765
+./client/run_client.sh --host <服务器IP> --port 8765
 ```
 
 不加 `--run` 时**不会发任何运动指令**，只打印每轮收到的动作。先确认：
@@ -103,7 +108,7 @@ python send_fake.py --host <服务器IP> --port 8765 --pattern noise       # 上
 **4. 确认无误后再动**
 
 ```bash
-./run_client.sh --host <服务器IP> --port 8765 --run --replan-every 18
+./client/run_client.sh --host <服务器IP> --port 8765 --run --replan-every 18
 ```
 
 ## 姿态保存与还原
@@ -111,10 +116,10 @@ python send_fake.py --host <服务器IP> --port 8765 --pattern noise       # 上
 开始调机器人之前先把当前姿态存下来，之后任何时候都能回到这个位姿：
 
 ```bash
-./run_pose_save.sh --name initial --note "部署前初始姿态"   # 只读，不发指令
-./run_pose_restore.sh                                     # 空跑，打印每个关节 当前→目标
-./run_pose_restore.sh --run                               # 真正还原
-./run_pose_restore.sh --run --side right                  # 只还原右臂
+./client/run_pose_save.sh --name initial --note "部署前初始姿态"   # 只读，不发指令
+./client/run_pose_restore.sh                                     # 空跑，打印每个关节 当前→目标
+./client/run_pose_restore.sh --run                               # 真正还原
+./client/run_pose_restore.sh --run --side right                  # 只还原右臂
 ```
 
 `pose_save.py` 存的是完整 24 维 state 加上每个关节的 `position` /
@@ -358,5 +363,5 @@ python send_fake.py --host <服务器IP> --port 8765 --pattern noise       # 上
 
 ```bash
 ssh -N -L 8765:127.0.0.1:8765 root@<服务器> -p <端口>
-./run_client.sh --host 127.0.0.1
+./client/run_client.sh --host 127.0.0.1
 ```

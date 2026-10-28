@@ -5,5 +5,5 @@ __pycache__/
 python3.10.log.INFO.*
 python3.10.INFO
 
-# pose_save.py 的时间戳快照；poses/initial.json 是保留的参考位姿
-poses/pose_*.json
+# pose_save.py 的时间戳快照；client/poses/initial.json 是保留的参考位姿
+client/poses/pose_*.json
