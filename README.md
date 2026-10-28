@@ -40,7 +40,17 @@
 | `move_right_arm.py` | 右臂单臂移动到训练集的 episode 起始位姿 |
 | `run_client.sh` | 在机器人上启动 |
 
-服务器端在 `/root/autodl-tmp/openpi/server/`。
+服务端（跑在 GPU 机器上）：
+
+| 文件 | 作用 |
+|---|---|
+| `server/server.py` | TCP 服务：收 JPEG → 解码 → π0.5 推理 → 回 (50,16) action |
+| `server/wire.py` | 和客户端 **同一份**协议实现（两侧 md5 一致，改一边要同步另一边） |
+| `server/run_server.sh` | 在 openpi 根目录下启动 |
+
+`server/` 里假设它被放在 openpi 仓库根下的 `server/` 目录（`ROOT = parents[1]`），
+因为它要 import openpi 的 `pi05_g2_lora` 配置和权重加载器。单独 clone 这个仓库跑不起来服务端，
+还需要 openpi 本体、checkpoint 和 `assets/` 里的 norm_stats。
 
 ## 快速开始
 
