@@ -1,0 +1,243 @@
+{
+  "saved_at": "2026-10-28T15:33:33",
+  "note": "部署前初始姿态",
+  "joint_timestamp_ns": 1773425603369684992,
+  "state24": [
+    -0.48338897,
+    1.1226838,
+    -0.66479622,
+    0.01236576,
+    0.02530668,
+    -0.03209347,
+    0.0,
+    0.1858699,
+    1.43774666,
+    -1.43331709,
+    -1.86256307,
+    -1.87617044,
+    -0.26895812,
+    0.67209259,
+    -0.5105716,
+    -1.36893804,
+    -1.47125416,
+    1.614527,
+    -2.06746671,
+    1.46705752,
+    0.42856187,
+    -0.44219321,
+    0.025,
+    0.025
+  ],
+  "joints": {
+    "idx01_body_joint1": {
+      "position": -0.48338896698634043,
+      "motor_position": -0.48338896698634043,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx02_body_joint2": {
+      "position": 1.1226838034462965,
+      "motor_position": 1.1226838034462965,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx03_body_joint3": {
+      "position": -0.6647962229054386,
+      "motor_position": -0.6647962229054386,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx04_body_joint4": {
+      "position": 0.012365764336069826,
+      "motor_position": 0.012365764336069826,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx05_body_joint5": {
+      "position": 0.0253066805017243,
+      "motor_position": 0.0253066805017243,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx11_head_joint1": {
+      "position": -0.03209347209082308,
+      "motor_position": -0.03209347209082308,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx12_head_joint2": {
+      "position": 0.0,
+      "motor_position": 0.0,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx13_head_joint3": {
+      "position": 0.18586989959410383,
+      "motor_position": 0.18586989959410383,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx21_arm_l_joint1": {
+      "position": 1.4377466629473008,
+      "motor_position": 1.4377466629473008,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx22_arm_l_joint2": {
+      "position": -1.4333170936851993,
+      "motor_position": -1.4333170936851993,
+      "velocity": -0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx23_arm_l_joint3": {
+      "position": -1.862563067918217,
+      "motor_position": -1.862563067918217,
+      "velocity": 0.0010471975511965978,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx24_arm_l_joint4": {
+      "position": -1.876170436244755,
+      "motor_position": -1.876170436244755,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx25_arm_l_joint5": {
+      "position": -0.2689581245989478,
+      "motor_position": -0.2689581245989478,
+      "velocity": 0.0010471975511965978,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx26_arm_l_joint6": {
+      "position": 0.6720925899762603,
+      "motor_position": 0.6720925899762603,
+      "velocity": -0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx27_arm_l_joint7": {
+      "position": -0.5105716035468455,
+      "motor_position": -0.5105716035468455,
+      "velocity": -0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx61_arm_r_joint1": {
+      "position": -1.3689380372307056,
+      "motor_position": -1.3689380372307056,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx62_arm_r_joint2": {
+      "position": -1.4712541563085142,
+      "motor_position": -1.4712541563085142,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx63_arm_r_joint3": {
+      "position": 1.6145270031590406,
+      "motor_position": 1.6145270031590406,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx64_arm_r_joint4": {
+      "position": -2.0674667088205245,
+      "motor_position": -2.0674667088205245,
+      "velocity": -0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx65_arm_r_joint5": {
+      "position": 1.4670575204311567,
+      "motor_position": 1.4670575204311567,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx66_arm_r_joint6": {
+      "position": 0.42856187472800367,
+      "motor_position": 0.42856187472800367,
+      "velocity": 0.0,
+      "mode": 0,
+      "error_code": 0
+    },
+    "idx67_arm_r_joint7": {
+      "position": -0.4421932115043525,
+      "motor_position": -0.4421932115043525,
+      "velocity": -0.0,
+      "mode": 0,
+      "error_code": 0
+    }
+  },
+  "grippers": {
+    "left": 0.025,
+    "right": 0.025
+  },
+  "end_effector": {
+    "left": {
+      "type": 1,
+      "names": [
+        "idx31_gripper_l_inner_joint1"
+      ],
+      "controlled": true,
+      "position": 0.025,
+      "velocity": 0.0,
+      "err_code": 0,
+      "enable": true
+    },
+    "right": {
+      "type": 1,
+      "names": [
+        "idx71_gripper_r_inner_joint1"
+      ],
+      "controlled": true,
+      "position": 0.025,
+      "velocity": 0.0,
+      "err_code": 0,
+      "enable": true
+    }
+  },
+  "power_state": {
+    "chest_power_board_power_state": 1,
+    "chest_reserved_lidar_power_state": 1,
+    "curved_screen_power_state": 0,
+    "domain_controller_power_state": 1,
+    "fan_power_state": 1,
+    "head_interactive_board_power_state": 0,
+    "head_pitch_motor_power_state": 0,
+    "head_roll_motor_power_state": 0,
+    "head_yaw_motor_power_state": 1,
+    "ipad_power_state": 1,
+    "left_arm_brake_enable_state": 0,
+    "left_arm_power_state": 1,
+    "leg_bending1_motor_power_state": 0,
+    "leg_bending2_motor_power_state": 0,
+    "leg_bending3_motor_power_state": 0,
+    "poe_power_state": 0,
+    "right_arm_brake_enable_state": 0,
+    "right_arm_power_state": 1,
+    "upper_body_led_strip_power_state": 0,
+    "waist_pitch_motor_power_state": 0,
+    "waist_yaw_motor_power_state": 1
+  },
+  "motion_control": {
+    "error_code": 0,
+    "mode": 1,
+    "control_mode": 0
+  }
+}

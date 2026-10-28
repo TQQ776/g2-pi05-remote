@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+
+# GDK/glog 运行时日志（每次运行都会新建，从不清理）
+python3.10.log.INFO.*
+python3.10.INFO
+
+# pose_save.py 的时间戳快照；poses/initial.json 是保留的参考位姿
+poses/pose_*.json
